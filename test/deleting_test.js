@@ -2,7 +2,7 @@ const assert = require('assert');
 const MarioChar = require('../models/mariochar');
 
 // Describe our tests
-describe('Finding records', function(){
+describe('Deleting records', function(){
 var char;
 
 
@@ -22,24 +22,19 @@ var char;
     });
     
 // Create tests
-it('Finds a record', function(done){
+it('Deletes a record', function(done){
 
-        MarioChar.findOne({name: 'Mario'}).then(function(result){
+        MarioChar.findOneAndRemove({name: 'Mario'}).then(function(){
+            MarioChar.findOne({name: 'Mario'}).then(function(result){
 
-            assert(result.name === 'Mario');
-            done();
+                assert(result === null);
+                done();
+            });
+        });
         });
 
     });
 
-it('Finds a record by ID', function(done){
+    
 
-        MarioChar.findOne({_id: char._id}).then(function(result){
 
-            assert(result._id.toString() === char._id.toString());
-            done();
-        });
-
-    });    
-
-});
