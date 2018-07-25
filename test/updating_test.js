@@ -11,7 +11,8 @@ var char;
     beforeEach(function(done){
         
             char = new MarioChar({
-            name: 'Mario'
+            name: 'Mario' ,
+            weight: 50
         });
         
         char.save().then(function(){
@@ -33,6 +34,17 @@ it('Updates a record', function(done){
 
       });
     });
+
+    it('Increments the weight by one', function(done){
+
+        MarioChar.update({} , {$inc: {weight : 1}}).then(function(){
+
+            MarioChar.findOne({name: 'Mario'}).then(function(result){
+                assert(result.weight === 51);
+                done();
+            });
+        });
+     });    
   });
 
     
